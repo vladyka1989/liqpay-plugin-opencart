@@ -5,12 +5,13 @@ LiqPay plugin for opencart CMS
 
 Releases (tags):
 
-for Opencart versions since 1.5.4
-- checkout3.0 - для работы с Liqpay API https://www.liqpay.com/ru/doc/checkout
-- liq&buy3.0 - для работы с Liqpay API https://www.liqpay.com/ru/doc/liq_buy
-
 for Opencart versions since 2.0
 - liqpay_checkout3.0 - для работы с Liqpay API https://www.liqpay.com/ru/doc/checkout
+
+#### Адаптация оригинального модуля Liqpay ####
+Адаптация оригинального модуля делалась для себя. Модуль протестирован только с версией 2.1.0.2.
+Больше информации на http://helpforsite.com
+Для связи со мной используйте e-mail: support@helpforsite.com
 
 #### Для установки модуля скопируйте его в каталог: ####
 
