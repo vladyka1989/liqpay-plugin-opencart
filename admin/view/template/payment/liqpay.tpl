@@ -23,70 +23,87 @@
  */
 ?>
 
-<?=$header?>
+<?php echo $header; ?><?php echo $column_left; ?>
 <div id="content">
-    <div class="breadcrumb">
-        <?php foreach ($breadcrumbs as $breadcrumb): ?>
-            <?=$breadcrumb['separator']?><a href="<?=$breadcrumb['href']?>"><?=$breadcrumb['text']?></a>
-        <?php endforeach ?>
+
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title="<?php echo $button_cancel; ?>" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1><?php echo $heading_title; ?></h1>
+      <ul class="breadcrumb">
+        <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+        <?php } ?>
+      </ul>
     </div>
+  </div>
 
-    <?php if ($error_warning): ?><div class="warning"><?=$error_warning?></div><?php endif ?>
 
-    <div class="box">
-        <div class="heading">
-            <h1><img src="view/image/payment/liqpay.png" alt="" /> <?=$heading_title?></h1>
-            <div class="buttons">
-                <a onclick="$('#form').submit();" class="button"><?=$button_save?></a>
-                <a href="<?=$cancel?>" class="button"><?=$button_cancel?></a>
-            </div>
-        </div>
-        <div class="content">
-            <form action="<?=$action?>" method="post" enctype="multipart/form-data" id="form">
-                <table class="form">
-                    <tr>
-                        <td><span class="required">*</span> <?=$entry_public_key?></td>
-                        <td><input type="text" name="liqpay_public_key" value="<?=$liqpay_public_key?>" />
-                            <?php if ($error_public_key):?><span class="error"><?=$error_public_key?></span><?php endif?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="required">*</span> <?=$entry_private_key?></td>
-                        <td><input type="text" name="liqpay_private_key" value="<?=$liqpay_private_key?>" />
-                            <?php if ($error_private_key):?><span class="error"><?=$error_private_key?></span><?php endif?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="required">*</span> <?=$entry_action?></td>
-                        <td><input type="text" name="liqpay_action" value="<?=$liqpay_action?>" />
-                            <?php if ($error_action):?><span class="error"><?=$error_action?></span><?php endif?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><?=$entry_pay_way?></td>
-                        <td>
+<div class="container-fluid">
+	<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title"><i class="fa fa-pencil"></i> <?php echo $heading_title; ?></h3>
+	</div>
+	<div class="panel-body">
+		<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-pay2pay" class="form-horizontal">
+                   
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-liqpay_public_key"><?php echo $entry_public_key; ?></label>
+                        <div class="col-sm-10">
+                          <input type="text" name="liqpay_public_key" value="<?php echo $liqpay_public_key; ?>" placeholder="<?php echo $entry_public_key; ?>" id="input-liqpay_public_key" class="form-control" />
+                        </div>
+                        <?php if ($error_public_key) { ?>
+                        <div class="text-danger"><?php echo $error_public_key; ?></div>
+                        <?php } ?>                        
+                    </div>       
+                    
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-liqpay_private_key"><?php echo $entry_private_key; ?></label>
+                        <div class="col-sm-10">
+                          <input type="text" name="liqpay_private_key" value="<?php echo $liqpay_private_key; ?>" placeholder="<?php echo $entry_private_key; ?>" id="input-liqpay_private_key" class="form-control" />
+                        </div>
+                        <?php if ($error_private_key) { ?>
+                        <div class="text-danger"><?php echo $error_private_key; ?></div>
+                        <?php } ?>                        
+                    </div>           
+                               
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label" for="input-liqpay_action"><?php echo $entry_action; ?></label>
+                        <div class="col-sm-10">
+                          <input type="text" name="liqpay_action" value="<?php echo $liqpay_action; ?>" placeholder="<?php echo $entry_action; ?>" id="input-liqpay_action" class="form-control" />
+                        </div>
+                        <?php if ($error_action) { ?>
+                        <div class="text-danger"><?php echo $error_action; ?></div>
+                        <?php } ?>                        
+                    </div>    
+                    
+                    <div class="form-group"> 
+                        <label class="col-sm-2 control-label"><?php echo $entry_pay_way; ?></label>
+                        <div class="col-sm-10">
 
-                            <label onclick="payWay()"><input type="checkbox" value="card" name="card" class="pay_way"  
+                            <label class="control-label" onclick="payWay()"><input type="checkbox" value="card" name="card" class="pay_way"  
                             <?php if (strpos($liqpay_pay_way, "card") !== false):?>checked="checked"<?php endif?>
                             /> Карта</label>
                            
 
-                            <label onclick="payWay()" ><input type="checkbox" value="liqpay" name="liqpay" class="pay_way" 
+                            <label class="control-label" onclick="payWay()" ><input type="checkbox" value="liqpay" name="liqpay" class="pay_way" 
                             <?php if (strpos($liqpay_pay_way, "liqpay") !== false):?>checked="checked"<?php endif?>
                             /> Liqpay</label>
                            
 
-                            <label onclick="payWay()"><input type="checkbox" value="delayed" name="delayed" class="pay_way"
+                            <label class="control-label" onclick="payWay()"><input type="checkbox" value="delayed" name="delayed" class="pay_way"
                             <?php if (strpos($liqpay_pay_way, "delayed") !== false):?>checked="checked"<?php endif?>
                             /> Терминал</label>
                            
 
-                            <label onclick="payWay()"><input type="checkbox" value="invoice" name="invoice" class="pay_way" 
+                            <label class="control-label" onclick="payWay()"><input type="checkbox" value="invoice" name="invoice" class="pay_way" 
                            <?php if (strpos($liqpay_pay_way, "invoice") !== false):?>checked="checked"<?php endif?>
                             /> Invoice</label>
                             
 
-                            <label onclick="payWay()"><input type="checkbox" value="privat24" name="privat24" class="pay_way"
+                            <label class="control-label" onclick="payWay()"><input type="checkbox" value="privat24" name="privat24" class="pay_way"
                             <?php if (strpos($liqpay_pay_way, "privat24") !== false):?>checked="checked"<?php endif?>
                             /> Privat24</label>
                             
@@ -94,16 +111,18 @@
                             <input type="text" id="pay_way" name="liqpay_pay_way" 
                             value="<?=$liqpay_pay_way?>" hidden/>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><?=$entry_total?></td>
-                        <td><input type="text" name="liqpay_total" value="<?=$liqpay_total?>" /></td>
-                    </tr>
-                    <tr>
-                        <td><?=$entry_order_status?></td>
-                        <td>
-                            <select name="liqpay_order_status_id">
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <label class="col-sm-2 control-label" for="input-liqpay_total"><?php echo $entry_total; ?></label>
+                        <div class="col-sm-10">
+                          <input type="text" name="liqpay_total" value="<?php echo $liqpay_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-liqpay_total" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <label class="col-sm-2 control-label"><?php echo $entry_order_status; ?></label>                   
+                        <div class="col-sm-10">
+                            <select class="form-control" name="liqpay_order_status_id">
                                 <?php
                                     foreach ($order_statuses as $order_status):
                                         $order_status_id = $order_status['order_status_id'];
@@ -114,12 +133,12 @@
                                     </option>
                                 <?php endforeach?>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><?=$entry_geo_zone?></td>
-                        <td>
-                            <select name="liqpay_geo_zone_id">
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <label class="col-sm-2 control-label"><?php echo $entry_geo_zone; ?></label> 
+                        <div class="col-sm-10">
+                            <select class="form-control" name="liqpay_geo_zone_id">
                                 <option value="0"><?=$text_all_zones?></option>
                                 <?php
                                     foreach ($geo_zones as $geo_zone):
@@ -131,12 +150,12 @@
                                     </option>
                                 <?php endforeach?>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><?=$entry_status?></td>
-                        <td>
-                            <select name="liqpay_status">
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <label class="col-sm-2 control-label"><?php echo $entry_status; ?></label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="liqpay_status">
                                 <option <?php if ($liqpay_status): ?>selected="selected"<?php endif?> value="1">
                                     <?=$text_enabled?>
                                 </option>
@@ -144,12 +163,12 @@
                                     <?=$text_disabled?>
                                 </option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><?=$entry_language?></td>
-                        <td>
-                            <select name="liqpay_language">
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <label class="col-sm-2 control-label"><?php echo $entry_language; ?></label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="liqpay_language">
                                 <option <?php if ($liqpay_language == 'ru'): ?>selected="selected"<?php endif?> value="ru">
                                     ru
                                 </option>
@@ -157,16 +176,17 @@
                                     en
                                 </option>
                             </select>
-                        </td>
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <label class="col-sm-2 control-label"><?php echo $entry_sort_order; ?></label>
+                        <div class="col-sm-10">
+                          <input class="form-control" type="text" name="liqpay_sort_order" value="<?=$liqpay_sort_order?>" size="1" />
+                        </div>
                     </tr>
-                    <tr>
-                      <td><?=$entry_sort_order?></td>
-                      <td><input type="text" name="liqpay_sort_order" value="<?=$liqpay_sort_order?>" size="1" /></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-    </div>
+
+    </form>
+  </div>
 </div>
 <script>
         function payWay(){
@@ -180,4 +200,4 @@
 
         }
 </script>
-<?=$footer?>
+<?php echo $footer; ?>
